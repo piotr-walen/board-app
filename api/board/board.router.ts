@@ -1,12 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { 
-  StatusCodes,
-} from 'http-status-codes';
+import { StatusCodes } from "http-status-codes";
 
 import { BoardModel } from "./board.model";
 import { Type } from "@sinclair/typebox";
 import { boardSchema } from "./board.schema";
-
 
 export const boardRouter = async (fastify: FastifyInstance) => {
 	fastify.decorateRequest("board", null);
@@ -15,9 +12,9 @@ export const boardRouter = async (fastify: FastifyInstance) => {
 		method: "POST",
 		url: "/",
 		schema: {
-			body: Type.Omit(boardSchema, ['id']),
+			body: Type.Omit(boardSchema, ["id"]),
 			response: {
-				default: boardSchema
+				default: boardSchema,
 			},
 		},
 		handler: async (req, res) => {
@@ -44,7 +41,7 @@ export const boardRouter = async (fastify: FastifyInstance) => {
 		method: "GET",
 		url: "/:id",
 		schema: {
-			params: Type.Pick(boardSchema, ['id']),
+			params: Type.Pick(boardSchema, ["id"]),
 			response: {
 				default: boardSchema,
 			},
@@ -55,24 +52,24 @@ export const boardRouter = async (fastify: FastifyInstance) => {
 		},
 	});
 
-  fastify.route({
+	fastify.route({
 		method: "PUT",
 		url: "/:id",
 		schema: {
-			params: Type.Pick(boardSchema, ['id']),
-			body: Type.Omit(boardSchema, ['id']),
+			params: Type.Pick(boardSchema, ["id"]),
+			body: Type.Omit(boardSchema, ["id"]),
 		},
 		handler: async (req, res) => {
 			await BoardModel().update(req.params, req.body);
-      res.code(StatusCodes.NO_CONTENT).send();
+			res.code(StatusCodes.NO_CONTENT).send();
 		},
 	});
 
-  fastify.route({
+	fastify.route({
 		method: "DELETE",
 		url: "/:id",
 		schema: {
-			params: Type.Pick(boardSchema, ['id']),
+			params: Type.Pick(boardSchema, ["id"]),
 		},
 		handler: async (req, res) => {
 			await BoardModel().delete(req.params);

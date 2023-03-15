@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "rome format .",
+    "format:fix": "rome format --write .",
+    "lint": "rome check .",
+    "lint:fix": "rome check --apply .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "rome": "^11.0.0"
+  }
 }
